@@ -251,6 +251,38 @@ var EditorCV = (function () {
     container.appendChild(field('Stadt', _profile.personal.signatureCity, function (v) {
       _profile.personal.signatureCity = v; _onChange();
     }, { hint: 'Wird in der Unterschrift verwendet' }));
+
+    var imgWrap = el('div', { className: 'field-row' });
+    var lbl = el('label', { className: 'field-label' }, 'Unterschrift-Bild');
+    imgWrap.appendChild(lbl);
+    var inner = el('div', { style: 'display:flex;flex-direction:column;gap:6px' });
+
+    if (_profile.personal.signatureImage) {
+      var preview = el('img', { src: _profile.personal.signatureImage, style: 'height:40px;border:1px solid #ddd;border-radius:4px;padding:2px' });
+      inner.appendChild(preview);
+      var removeBtn = el('button', { className: 'btn-remove', style: 'align-self:flex-start' }, 'Entfernen');
+      removeBtn.addEventListener('click', function () {
+        _profile.personal.signatureImage = ''; _onChange();
+        build(document.getElementById('editor-panel'), _profile, _lang, _onChange);
+      });
+      inner.appendChild(removeBtn);
+    } else {
+      var fileInput = el('input', { type: 'file', accept: 'image/*' });
+      fileInput.addEventListener('change', function () {
+        var file = fileInput.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          _profile.personal.signatureImage = e.target.result; _onChange();
+          build(document.getElementById('editor-panel'), _profile, _lang, _onChange);
+        };
+        reader.readAsDataURL(file);
+      });
+      inner.appendChild(fileInput);
+    }
+
+    imgWrap.appendChild(inner);
+    container.appendChild(imgWrap);
   }
 
   function build(container, profile, lang, onChange) {

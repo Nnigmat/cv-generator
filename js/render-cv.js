@@ -87,9 +87,12 @@ var RenderCV = (function () {
       var dd = String(today.getDate()).padStart(2, '0');
       var mm = String(today.getMonth() + 1).padStart(2, '0');
       var yyyy = today.getFullYear();
+      var sigLine = p.signatureImage
+        ? '<img src="' + p.signatureImage + '" style="height:40px;display:block;margin-bottom:2px" alt="Unterschrift">'
+        : '_______________<br>';
       signatureHtml = '<div class="cv-signature">'
         + esc(p.signatureCity) + ', ' + dd + '.' + mm + '.' + yyyy
-        + '<br><br>_______________<br>' + esc(p.name || '')
+        + '<br><br>' + sigLine + esc(p.name || '')
         + '</div>';
     }
 
