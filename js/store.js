@@ -27,7 +27,7 @@ var Store = (function () {
       id: Math.random().toString(36).slice(2) + Date.now().toString(36),
       createdAt: new Date().toISOString(),
       meta: { company: '', position: '', status: 'draft', lang: 'en' },
-      personal: { name: '', email: '', phone: '', linkedin: '', github: '', address: '', photo: '' },
+      personal: { name: '', email: '', phone: '', linkedin: '', github: '', address: '', photo: '', dateOfBirth: '', nationality: '', maritalStatus: '', signatureCity: '' },
       about: { en: '', de: '' },
       sidebarSections: [
         { id: 'skills', title: { en: 'Skills', de: 'Kenntnisse' }, type: 'tags', items: [] },
