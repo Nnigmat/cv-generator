@@ -1,0 +1,117 @@
+{
+  "id": "test-profile-001",
+  "createdAt": "2026-06-07T10:00:00.000Z",
+  "meta": {
+    "company": "Acme Corp",
+    "position": "Senior Frontend Developer",
+    "status": "sent",
+    "lang": "en"
+  },
+  "personal": {
+    "name": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "phone": "+49 123 456 7890",
+    "linkedin": "linkedin.com/in/jane-smith",
+    "github": "github.com/janesmith",
+    "address": "Hauptstraße 1, 10115 Berlin, Germany",
+    "photo": ""
+  },
+  "about": {
+    "en": "Senior Frontend Developer with 6+ years of experience building scalable React and TypeScript applications. Passionate about accessibility, performance optimization, and clean architecture.",
+    "de": "Senior Frontend-Entwicklerin mit über 6 Jahren Erfahrung in der Entwicklung skalierbarer React- und TypeScript-Applikationen. Leidenschaftlich für Barrierefreiheit, Performance-Optimierung und saubere Architektur."
+  },
+  "sidebarSections": [
+    {
+      "id": "skills",
+      "title": { "en": "Skills", "de": "Kenntnisse" },
+      "type": "tags",
+      "items": ["TypeScript", "React", "JavaScript", "CSS3", "HTML5", "Webpack", "Vite", "Jest", "Git"]
+    },
+    {
+      "id": "languages",
+      "title": { "en": "Languages", "de": "Sprachen" },
+      "type": "list",
+      "items": [
+        { "en": "English: Native", "de": "Englisch: Muttersprache" },
+        { "en": "German: C1", "de": "Deutsch: C1" },
+        { "en": "French: B2", "de": "Französisch: B2" }
+      ]
+    },
+    {
+      "id": "hobbies",
+      "title": { "en": "Hobbies", "de": "Hobbys" },
+      "type": "text",
+      "content": {
+        "en": "Open source contributions, hiking, photography",
+        "de": "Open-Source-Beiträge, Wandern, Fotografie"
+      }
+    }
+  ],
+  "experience": [
+    {
+      "id": "e1",
+      "title": { "en": "Senior Frontend Developer", "de": "Senior Frontend-Entwicklerin" },
+      "company": "TechStartup GmbH",
+      "period": "03/2022 – present",
+      "duration": { "en": "3+ Years", "de": "3+ Jahre" },
+      "bullets": {
+        "en": [
+          "Led frontend architecture for SaaS platform with **50k+ monthly active users**",
+          "Reduced bundle size by **35%** through code splitting and tree shaking",
+          "Introduced component library used across **4 product teams**",
+          "Improved Lighthouse performance score from **68** to **94**"
+        ],
+        "de": [
+          "Leitete Frontend-Architektur für SaaS-Plattform mit **über 50.000 monatlich aktiven Nutzern**",
+          "Reduzierte Bundle-Größe um **35 %** durch Code-Splitting und Tree-Shaking",
+          "Führte Komponentenbibliothek ein, die von **4 Produktteams** genutzt wird",
+          "Verbesserte Lighthouse-Performance-Score von **68** auf **94**"
+        ]
+      }
+    },
+    {
+      "id": "e2",
+      "title": { "en": "Frontend Developer", "de": "Frontend-Entwicklerin" },
+      "company": "Digital Agency Berlin",
+      "period": "06/2019 – 02/2022",
+      "duration": { "en": "2.8 Years", "de": "2,8 Jahre" },
+      "bullets": {
+        "en": [
+          "Built **12 client websites** with React and Next.js",
+          "Implemented CI/CD pipelines reducing deployment time by **40%**",
+          "Mentored **2 junior developers**"
+        ],
+        "de": [
+          "Entwickelte **12 Kunden-Websites** mit React und Next.js",
+          "Implementierte CI/CD-Pipelines, die Deployment-Zeit um **40 %** reduzierten",
+          "Betreute **2 Junior-Entwickler**"
+        ]
+      }
+    }
+  ],
+  "education": [
+    {
+      "id": "ed1",
+      "institution": "Technical University of Berlin",
+      "degree": {
+        "en": "Bachelor of Science in Computer Science",
+        "de": "Bachelor of Science in Informatik"
+      },
+      "location": {
+        "en": "Berlin, Germany · 2015–2019",
+        "de": "Berlin, Deutschland · 2015–2019"
+      },
+      "period": "2015–2019"
+    }
+  ],
+  "coverLetter": {
+    "date": {
+      "en": "June 2026",
+      "de": "Juni 2026"
+    },
+    "body": {
+      "en": "Acme Corp's focus on developer tools and open-source infrastructure immediately caught my attention. Building products that make developers more productive is exactly the kind of work I find most meaningful.\n\nAt TechStartup GmbH, I led the frontend architecture for a SaaS platform serving over 50,000 monthly active users. I introduced component systems, improved performance scores by 38%, and reduced bundle size by 35% — all while keeping the team unblocked and shipping features on schedule.\n\nI'm drawn to Acme's engineering culture of ownership and craft. I'd love to bring that same energy to your frontend team.",
+      "de": "Die Fokussierung von Acme Corp auf Entwickler-Tools und Open-Source-Infrastruktur hat mich sofort angesprochen. Produkte zu entwickeln, die Entwickler produktiver machen, ist genau die Art von Arbeit, die ich am bedeutsamsten finde.\n\nBei TechStartup GmbH habe ich die Frontend-Architektur für eine SaaS-Plattform mit über 50.000 monatlich aktiven Nutzern geleitet. Ich habe Komponentensysteme eingeführt, Performance-Scores um 38 % verbessert und die Bundle-Größe um 35 % reduziert.\n\nDie Ingenieurskultur von Acme mit Eigenverantwortung und Qualitätsanspruch spricht mich sehr an. Ich würde diese Energie gerne in Ihr Frontend-Team einbringen."
+    }
+  }
+}
