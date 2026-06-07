@@ -52,8 +52,8 @@
       "id": "e1",
       "title": { "en": "Senior Frontend Developer", "de": "Senior Frontend-Entwicklerin" },
       "company": "TechStartup GmbH",
-      "period": "03/2022 – present",
-      "duration": { "en": "3+ Years", "de": "3+ Jahre" },
+      "period": "03/2022 – 05/2025",
+      "duration": { "en": "3.2 Years", "de": "3,2 Jahre" },
       "bullets": {
         "en": [
           "Led frontend architecture for SaaS platform with **50k+ monthly active users**",
@@ -66,6 +66,25 @@
           "Reduzierte Bundle-Größe um **35 %** durch Code-Splitting und Tree-Shaking",
           "Führte Komponentenbibliothek ein, die von **4 Produktteams** genutzt wird",
           "Verbesserte Lighthouse-Performance-Score von **68** auf **94**"
+        ]
+      }
+    },
+    {
+      "id": "e0",
+      "title": { "en": "Career Break — Further Education", "de": "Karrierepause — Weiterbildung" },
+      "company": "",
+      "period": "06/2025 – present",
+      "duration": { "en": "1 Year", "de": "1 Jahr" },
+      "bullets": {
+        "en": [
+          "Completed **German language course** at Goethe-Institut Berlin (B2 → C1)",
+          "Completed **French language course** at VHS Berlin (A2 → B1)",
+          "Contributed to open-source React projects on GitHub"
+        ],
+        "de": [
+          "Abschluss eines **Deutschkurses** am Goethe-Institut Berlin (B2 → C1)",
+          "Abschluss eines **Französischkurses** an der VHS Berlin (A2 → B1)",
+          "Beiträge zu Open-Source-React-Projekten auf GitHub"
         ]
       }
     },
