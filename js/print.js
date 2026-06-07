@@ -43,7 +43,7 @@ var Print = (function () {
 
   function buildFilename(profile, suffix) {
     var company = (profile && profile.meta && profile.meta.company) ? profile.meta.company.replace(/\s+/g, '_') : '';
-    var name = (profile && profile.meta && profile.meta.name) ? profile.meta.name.replace(/\s+/g, '_') : 'CV';
+    var name = (profile && profile.personal && profile.personal.name) ? profile.personal.name.replace(/\s+/g, '_') : 'CV';
     return company ? company + (suffix ? '_' + suffix : '') + '_' + name : (suffix ? suffix + '_' : '') + name;
   }
 
