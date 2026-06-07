@@ -2,6 +2,8 @@
   var STATUS_OPTIONS = ['draft', 'sent', 'interview', 'rejected', 'offer'];
   var STATUS_LABELS = { draft: 'Draft', sent: 'Sent', interview: 'Interview', rejected: 'Rejected', offer: 'Offer' };
 
+  function esc(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
   function formatDate(iso) {
     var d = new Date(iso);
     return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
@@ -19,8 +21,8 @@
         return '<option value="' + s + '"' + (p.meta.status === s ? ' selected' : '') + '>' + STATUS_LABELS[s] + '</option>';
       }).join('');
       return '<div class="profile-card" data-id="' + p.id + '">'
-        + '<div class="profile-card-title">' + (p.meta.company || 'Unnamed company') + '</div>'
-        + '<div class="profile-card-position">' + (p.meta.position || 'No position') + '</div>'
+        + '<div class="profile-card-title">' + esc(p.meta.company || 'Unnamed company') + '</div>'
+        + '<div class="profile-card-position">' + esc(p.meta.position || 'No position') + '</div>'
         + '<select class="status-select" data-id="' + p.id + '">' + statusOpts + '</select>'
         + '<div class="profile-card-footer">'
         + '<span class="profile-card-date">' + formatDate(p.createdAt) + '</span>'

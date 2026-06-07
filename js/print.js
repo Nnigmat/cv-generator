@@ -27,6 +27,7 @@ var Print = (function () {
     + '.cl-wrap{font-family:Arial,Helvetica,sans-serif;font-size:10pt;color:#1a1a1a;line-height:1.55}'
     + '.cl-sender-name{font-size:16pt;font-weight:700;margin-bottom:5px}'
     + '.cl-sender-contact{font-size:9pt;color:#555;line-height:1.7}'
+    + '.cl-addressee{margin:18px 0}'
     + '.cl-para{font-size:9.5pt;margin:0 0 12px}'
     + '</style>';
 
