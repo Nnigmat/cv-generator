@@ -1,7 +1,7 @@
 var RenderCV = (function () {
   var L10N = {
-    en: { aboutMe: 'ABOUT ME', experience: 'EXPERIENCE', education: 'EDUCATION' },
-    de: { aboutMe: 'ÜBER MICH', experience: 'BERUFSERFAHRUNG', education: 'AUSBILDUNG' }
+    en: { aboutMe: 'ABOUT ME', experience: 'CAREER', education: 'EDUCATION' },
+    de: { aboutMe: 'ÜBER MICH', experience: 'WERDEGANG', education: 'AUSBILDUNG' }
   };
 
   function esc(str) {
