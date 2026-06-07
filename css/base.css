@@ -1,0 +1,14 @@
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; background: #eff1f5; color: #1a1a1a; }
+button, input, textarea, select { font-family: inherit; font-size: inherit; }
+textarea:focus, input:focus, select:focus { outline: 2px solid var(--accent); }
+
+:root {
+  --accent: #0056b3;
+  --sidebar-bg: #1e2d40;
+  --sidebar-fg: #e8edf3;
+  --accent-light: #e8f0fb;
+  --border: #e0e0e0;
+  --radius: 8px;
+  --shadow: 0 2px 12px rgba(0,0,0,0.09);
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV Builder</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/cv.css" />
+  <link rel="stylesheet" href="css/editor.css" />
+</head>
+<body>
+  <div class="toolbar">
+    <div class="tab-switcher">
+      <button class="tab-btn active" data-tab="cv">📄 CV</button>
+      <button class="tab-btn" data-tab="cover">✉️ Cover Letter</button>
+    </div>
+    <div class="toolbar-group">
+      <button class="btn active" id="btn-lang-en">EN</button>
+      <button class="btn" id="btn-lang-de">DE</button>
+    </div>
+    <div class="toolbar-group">
+      <button class="btn active" id="btn-preview">👁 Preview</button>
+      <button class="btn" id="btn-edit">✏️ Edit</button>
+    </div>
+    <div class="toolbar-group">
+      <button class="btn dark" id="btn-save-cv">🖨 Save CV as PDF</button>
+      <button class="btn dark" id="btn-save-cl">🖨 Save Letter as PDF</button>
+    </div>
+    <div class="toolbar-group">
+      <button class="btn" id="btn-export">⬇ Export JSON</button>
+      <label class="btn" style="cursor:pointer">
+        ⬆ Import JSON <input type="file" id="import-json" accept=".json" style="display:none" />
+      </label>
+    </div>
+    <a href="index.html" class="btn">← Dashboard</a>
+  </div>
+
+  <div class="builder-wrap">
+    <div class="editor-panel" id="editor-panel" style="display:none"></div>
+    <div class="preview-panel">
+      <div class="preview-card" id="cv-preview"></div>
+      <div class="preview-card" id="cl-preview" style="display:none"></div>
+    </div>
+  </div>
+
+  <script src="js/store.js"></script>
+  <script src="js/render-cv.js"></script>
+  <script src="js/render-cl.js"></script>
+  <script src="js/editor-cv.js"></script>
+  <script src="js/editor-cl.js"></script>
+  <script src="js/print.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
