@@ -52,6 +52,7 @@
       document.getElementById('btn-lang-' + l).classList.toggle('active', l === lang);
     });
     if (mode === 'edit') rebuildEditor();
+    persist();
     rerender();
   }
 
@@ -86,7 +87,7 @@
     a.href = URL.createObjectURL(blob);
     a.download = (profile.meta.company || 'cv') + '.json';
     a.click();
-    URL.revokeObjectURL(a.href);
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 100);
   });
 
   document.getElementById('import-json').addEventListener('change', function (e) {
