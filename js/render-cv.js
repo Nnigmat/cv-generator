@@ -53,7 +53,7 @@ var RenderCV = (function () {
       return '<div style="margin-top:6px;margin-bottom:10px">'
         + '<div class="cv-exp-header"><div><strong>' + esc(title) + '</strong><br>'
         + '<em style="font-size:9pt;color:#555">' + esc(job.company || '') + '</em></div>'
-        + '<div class="cv-exp-period">' + esc(job.period || '') + '<br>(' + esc(duration) + ')</div></div>'
+        + '<div class="cv-exp-period">' + esc(job.period || '') + (duration ? '<br>(' + esc(duration) + ')' : '') + '</div></div>'
         + '<ul class="cv-exp-bullets">' + bullets + '</ul></div>';
     }).join('');
 
