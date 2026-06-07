@@ -12,6 +12,13 @@
 .cv-sidebar-list li { font-size: 9pt; margin-bottom: 3px; }
 .cv-sidebar-text { font-size: 9pt; line-height: 1.55; }
 
+/* Linear (no-sidebar) layout for EN version */
+.cv-wrap--linear { display: block; }
+.cv-wrap--linear .cv-main { padding: 20px 28px; }
+.cv-wrap--linear .cv-sidebar-tag { background: #e8edf2; color: #1a1a1a; }
+.cv-wrap--linear .cv-sidebar-list li { color: #1a1a1a; }
+.cv-wrap--linear .cv-sidebar-text { color: #1a1a1a; }
+
 /* Main column */
 .cv-main { flex: 1; padding: 20px 22px; }
 .cv-name { font-size: 20pt; font-weight: 700; margin-bottom: 4px; }

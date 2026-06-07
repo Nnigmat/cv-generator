@@ -12,7 +12,7 @@ var RenderCV = (function () {
     return esc(text).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   }
 
-  function renderSidebarSection(sec, lang) {
+  function renderSidebarSection(sec, lang, inline) {
     var title = esc(sec.title[lang] || sec.title.en || '');
     var body = '';
     if (sec.type === 'tags') {
@@ -27,6 +27,9 @@ var RenderCV = (function () {
     } else if (sec.type === 'text') {
       var content = sec.content ? (sec.content[lang] || sec.content.en || '') : '';
       body = '<div class="cv-sidebar-text">' + esc(content) + '</div>';
+    }
+    if (inline) {
+      return '<div class="cv-section"><div class="cv-section-title">' + title + '</div><hr class="cv-divider"/>' + body + '</div>';
     }
     return '<div class="cv-sidebar-section"><div class="cv-sidebar-section-title">' + title + '</div>' + body + '</div>';
   }
@@ -57,7 +60,11 @@ var RenderCV = (function () {
     var personalData = lang === 'de' ? renderPersonalData(p) : '';
     var sidebar = photo
       + personalData
-      + (profile.sidebarSections || []).map(function (s) { return renderSidebarSection(s, lang); }).join('');
+      + (profile.sidebarSections || []).map(function (s) { return renderSidebarSection(s, lang, false); }).join('');
+
+    var inlineSections = lang === 'en'
+      ? (profile.sidebarSections || []).map(function (s) { return renderSidebarSection(s, lang, true); }).join('')
+      : '';
 
     var contact = [p.email, p.phone].filter(Boolean).map(function (v) { return esc(v); }).join(' | ');
     var links = [p.linkedin, p.github].filter(Boolean).map(function (v) { return esc(v); }).join(' | ');
@@ -96,8 +103,9 @@ var RenderCV = (function () {
         + '</div>';
     }
 
-    var html = '<div class="cv-wrap">'
-      + '<div class="cv-sidebar">' + sidebar + '</div>'
+    var wrapClass = lang === 'en' ? 'cv-wrap cv-wrap--linear' : 'cv-wrap';
+    var html = '<div class="' + wrapClass + '">'
+      + (lang !== 'en' ? '<div class="cv-sidebar">' + sidebar + '</div>' : '')
       + '<div class="cv-main">'
       + '<div class="cv-name">' + esc(p.name || '') + '</div>'
       + (contact ? '<div class="cv-contact">' + contact + '</div>' : '')
@@ -107,6 +115,7 @@ var RenderCV = (function () {
       + '<div style="font-size:9.5pt">' + esc(profile.about ? (profile.about[lang] || '') : '') + '</div></div>'
       + (expHtml ? '<div class="cv-section"><div class="cv-section-title">' + L.experience + '</div><hr class="cv-divider"/>' + expHtml + '</div>' : '')
       + (eduHtml ? '<div class="cv-section"><div class="cv-section-title">' + L.education + '</div><hr class="cv-divider"/>' + eduHtml + '</div>' : '')
+      + inlineSections
       + signatureHtml
       + '</div></div>';
 
