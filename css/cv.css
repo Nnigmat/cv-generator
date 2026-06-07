@@ -38,6 +38,9 @@
 .cv-sidebar-personal-row { font-size: 9pt; margin-bottom: 3px; }
 .cv-sidebar-personal-label { font-weight: 600; }
 
+/* Signature block */
+.cv-signature { margin-top: 32px; font-size: 9pt; }
+
 /* Print styles */
 @media print {
   body { margin: 0; background: white; }

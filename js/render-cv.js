@@ -79,6 +79,18 @@ var RenderCV = (function () {
         + esc(degree) + '<br><em style="color:#555">' + esc(location) + (ed.period ? ' · ' + esc(ed.period) : '') + '</em></div>';
     }).join('');
 
+    var signatureHtml = '';
+    if (lang === 'de' && p.signatureCity) {
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0');
+      var yyyy = today.getFullYear();
+      signatureHtml = '<div class="cv-signature">'
+        + esc(p.signatureCity) + ', ' + dd + '.' + mm + '.' + yyyy
+        + '<br><br>_______________<br>' + esc(p.name || '')
+        + '</div>';
+    }
+
     var html = '<div class="cv-wrap">'
       + '<div class="cv-sidebar">' + sidebar + '</div>'
       + '<div class="cv-main">'
@@ -90,6 +102,7 @@ var RenderCV = (function () {
       + '<div style="font-size:9.5pt">' + esc(profile.about ? (profile.about[lang] || '') : '') + '</div></div>'
       + (expHtml ? '<div class="cv-section"><div class="cv-section-title">' + L.experience + '</div><hr class="cv-divider"/>' + expHtml + '</div>' : '')
       + (eduHtml ? '<div class="cv-section"><div class="cv-section-title">' + L.education + '</div><hr class="cv-divider"/>' + eduHtml + '</div>' : '')
+      + signatureHtml
       + '</div></div>';
 
     document.getElementById('cv-preview').innerHTML = html;
