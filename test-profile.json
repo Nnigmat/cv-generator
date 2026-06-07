@@ -102,6 +102,32 @@
         "de": "Berlin, Deutschland · 2015–2019"
       },
       "period": "2015–2019"
+    },
+    {
+      "id": "ed2",
+      "institution": "Goethe-Institut Berlin",
+      "degree": {
+        "en": "German Language Course (B2 → C1)",
+        "de": "Deutschkurs (B2 → C1)"
+      },
+      "location": {
+        "en": "Berlin, Germany · 2025–2026",
+        "de": "Berlin, Deutschland · 2025–2026"
+      },
+      "period": "2025–2026"
+    },
+    {
+      "id": "ed3",
+      "institution": "VHS Berlin",
+      "degree": {
+        "en": "French Language Course (A2 → B1)",
+        "de": "Französischkurs (A2 → B1)"
+      },
+      "location": {
+        "en": "Berlin, Germany · 2025–2026",
+        "de": "Berlin, Deutschland · 2025–2026"
+      },
+      "period": "2025–2026"
     }
   ],
   "coverLetter": {
