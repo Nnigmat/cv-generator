@@ -31,6 +31,19 @@ var RenderCV = (function () {
     return '<div class="cv-sidebar-section"><div class="cv-sidebar-section-title">' + title + '</div>' + body + '</div>';
   }
 
+  function renderPersonalData(p) {
+    var rows = [
+      ['Geburtsdatum', p.dateOfBirth],
+      ['Staatsangehörigkeit', p.nationality],
+      ['Familienstand', p.maritalStatus]
+    ].filter(function (r) { return r[1]; })
+     .map(function (r) {
+       return '<div class="cv-sidebar-personal-row"><span class="cv-sidebar-personal-label">' + esc(r[0]) + '</span> ' + esc(r[1]) + '</div>';
+     }).join('');
+    if (!rows) return '';
+    return '<div class="cv-sidebar-section"><div class="cv-sidebar-section-title">Persönliche Daten</div>' + rows + '</div>';
+  }
+
   function render(profile, lang) {
     var L = L10N[lang] || L10N.en;
     var p = profile.personal || {};
@@ -39,7 +52,9 @@ var RenderCV = (function () {
       ? '<img class="cv-sidebar-photo" src="' + photoSrc + '" alt="photo" />'
       : '<div class="cv-sidebar-photo-placeholder">No photo</div>';
 
+    var personalData = lang === 'de' ? renderPersonalData(p) : '';
     var sidebar = photo
+      + personalData
       + (profile.sidebarSections || []).map(function (s) { return renderSidebarSection(s, lang); }).join('');
 
     var contact = [p.email, p.phone].filter(Boolean).map(function (v) { return esc(v); }).join(' | ');
