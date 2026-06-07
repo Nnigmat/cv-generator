@@ -107,6 +107,7 @@
     e.target.value = '';
   });
 
-  // Initial render
-  rerender();
+  // Initial render — pre-render both so PDF export works without switching tabs
+  RenderCV.render(profile, lang);
+  RenderCL.render(profile, lang);
 })();
