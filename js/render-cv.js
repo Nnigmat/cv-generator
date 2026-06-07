@@ -66,8 +66,14 @@ var RenderCV = (function () {
       ? (profile.sidebarSections || []).map(function (s) { return renderSidebarSection(s, lang, true); }).join('')
       : '';
 
-    var contact = [p.email, p.phone].filter(Boolean).map(function (v) { return esc(v); }).join(' | ');
-    var links = [p.linkedin, p.github].filter(Boolean).map(function (v) { return esc(v); }).join(' | ');
+    var contact = [p.email, p.phone].filter(Boolean).map(function (v) {
+      if (v === p.phone) return '<a href="tel:' + esc(v.replace(/\s+/g, '')) + '" style="color:inherit;text-decoration:none">' + esc(v) + '</a>';
+      return esc(v);
+    }).join(' | ');
+    var links = [p.linkedin, p.github].filter(Boolean).map(function (v) {
+      var href = /^https?:\/\//i.test(v) ? v : 'https://' + v;
+      return '<a href="' + href + '" style="color:inherit;text-decoration:none">' + esc(v) + '</a>';
+    }).join(' | ');
 
     var expHtml = (profile.experience || []).map(function (job) {
       var title = job.title ? (job.title[lang] || job.title.en || '') : '';
