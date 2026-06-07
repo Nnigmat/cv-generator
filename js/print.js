@@ -32,21 +32,27 @@ var Print = (function () {
     + '.cl-para{font-size:9.5pt;margin:0 0 12px}'
     + '</style>';
 
-  function openAndPrint(bodyHTML) {
+  function openAndPrint(bodyHTML, title) {
     var win = window.open('', '_blank');
     if (!win) { alert('Allow popups for this page, then try again.'); return; }
     win.document.open();
-    win.document.write('<!DOCTYPE html><html><head><meta charset="utf-8">' + BASE_CSS + '</head><body>' + bodyHTML + '</body></html>');
+    win.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>' + title + '</title>' + BASE_CSS + '</head><body>' + bodyHTML + '</body></html>');
     win.document.close();
     setTimeout(function () { win.focus(); win.print(); }, 600);
   }
 
+  function buildFilename(profile, suffix) {
+    var company = (profile && profile.meta && profile.meta.company) ? profile.meta.company.replace(/\s+/g, '_') : '';
+    var name = (profile && profile.meta && profile.meta.name) ? profile.meta.name.replace(/\s+/g, '_') : 'CV';
+    return company ? company + (suffix ? '_' + suffix : '') + '_' + name : (suffix ? suffix + '_' : '') + name;
+  }
+
   function printCV(profile, lang) {
-    openAndPrint(document.getElementById('cv-preview').innerHTML);
+    openAndPrint(document.getElementById('cv-preview').innerHTML, buildFilename(profile, ''));
   }
 
   function printCL(profile, lang) {
-    openAndPrint(document.getElementById('cl-preview').innerHTML);
+    openAndPrint(document.getElementById('cl-preview').innerHTML, buildFilename(profile, 'Cover'));
   }
 
   return { printCV: printCV, printCL: printCL };
