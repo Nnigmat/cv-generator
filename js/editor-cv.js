@@ -43,6 +43,22 @@ var EditorCV = (function () {
       }));
     });
     container.appendChild(grid);
+
+    if (_lang === 'de') {
+      container.appendChild(sectionLabel('Persönliche Daten'));
+      var deGrid = el('div', { className: 'field-grid-2' });
+      var deFields = [
+        ['Geburtsdatum', 'dateOfBirth'],
+        ['Staatsangehörigkeit', 'nationality'],
+        ['Familienstand', 'maritalStatus']
+      ];
+      deFields.forEach(function (pair) {
+        deGrid.appendChild(field(pair[0], _profile.personal[pair[1]], function (v) {
+          _profile.personal[pair[1]] = v; _onChange();
+        }));
+      });
+      container.appendChild(deGrid);
+    }
   }
 
   function buildPhoto(container) {
