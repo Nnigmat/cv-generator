@@ -47,10 +47,12 @@ var RenderCV = (function () {
   function render(profile, lang) {
     var L = L10N[lang] || L10N.en;
     var p = profile.personal || {};
-    var photoSrc = p.photo && p.photo.startsWith('data:image/') ? p.photo : null;
-    var photo = photoSrc
-      ? '<img class="cv-sidebar-photo" src="' + photoSrc + '" alt="photo" />'
-      : '<div class="cv-sidebar-photo-placeholder">No photo</div>';
+    var photoSrc = lang !== 'en' && p.photo && p.photo.startsWith('data:image/') ? p.photo : null;
+    var photo = lang === 'en'
+      ? ''
+      : (photoSrc
+          ? '<img class="cv-sidebar-photo" src="' + photoSrc + '" alt="photo" />'
+          : '<div class="cv-sidebar-photo-placeholder">No photo</div>');
 
     var personalData = lang === 'de' ? renderPersonalData(p) : '';
     var sidebar = photo
