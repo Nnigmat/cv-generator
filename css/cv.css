@@ -34,6 +34,10 @@
 .cl-addressee { margin: 18px 0; }
 .cl-para { font-size: 9.5pt; margin: 0 0 12px; }
 
+/* Sidebar personal data rows */
+.cv-sidebar-personal-row { font-size: 9pt; margin-bottom: 3px; }
+.cv-sidebar-personal-label { font-weight: 600; }
+
 /* Print styles */
 @media print {
   body { margin: 0; background: white; }
