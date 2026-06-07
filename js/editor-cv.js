@@ -246,6 +246,13 @@ var EditorCV = (function () {
     container.appendChild(list);
   }
 
+  function buildSignature(container) {
+    container.appendChild(sectionLabel('Unterschrift'));
+    container.appendChild(field('Stadt', _profile.personal.signatureCity, function (v) {
+      _profile.personal.signatureCity = v; _onChange();
+    }, { hint: 'Wird in der Unterschrift verwendet' }));
+  }
+
   function build(container, profile, lang, onChange) {
     _profile = profile; _lang = lang; _onChange = onChange;
     container.innerHTML = '';
@@ -256,6 +263,7 @@ var EditorCV = (function () {
     buildSidebar(wrap);
     buildExperience(wrap);
     buildEducation(wrap);
+    if (_lang === 'de') { buildSignature(wrap); }
     container.appendChild(wrap);
   }
 
