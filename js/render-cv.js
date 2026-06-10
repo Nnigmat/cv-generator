@@ -64,9 +64,7 @@ var RenderCV = (function () {
       + personalData
       + (profile.sidebarSections || []).map(function (s) { return renderSidebarSection(s, lang, false); }).join('');
 
-    var inlineSections = lang === 'en'
-      ? (profile.sidebarSections || []).map(function (s) { return renderSidebarSection(s, lang, true); }).join('')
-      : '';
+    var inlineSections = '';
 
     // DE layout: pipe-separated email | phone, then links
     var contact = [p.email, p.phone].filter(Boolean).map(function (v) {
