@@ -13,7 +13,10 @@
     "phone": "+49 123 456 7890",
     "linkedin": "linkedin.com/in/jane-smith",
     "github": "github.com/janesmith",
-    "address": "Hauptstraße 1, 10115 Berlin, Germany",
+    "address": {
+      "en": "Hooverweg 5, 30519 Hannover, Germany",
+      "de": "Hooverweg 5, 30519 Hannover, Deutschland"
+    },
     "photo": ""
   },
   "about": {
@@ -49,6 +52,38 @@
   ],
   "experience": [
     {
+      "id": "e0a",
+      "title": { "en": "German Language Course (B2 → C1)", "de": "Deutschkurs (B2 → C1)" },
+      "company": "Goethe-Institut Berlin",
+      "period": "06/2025 – present",
+      "duration": { "en": "1 Year", "de": "1 Jahr" },
+      "bullets": {
+        "en": [
+          "Intensive German language course, advanced level (B2 → C1)",
+          "Contributed to open-source React projects on GitHub"
+        ],
+        "de": [
+          "Intensiver Deutschkurs, Fortgeschrittenenniveau (B2 → C1)",
+          "Beiträge zu Open-Source-React-Projekten auf GitHub"
+        ]
+      }
+    },
+    {
+      "id": "e0b",
+      "title": { "en": "French Language Course (A2 → B1)", "de": "Französischkurs (A2 → B1)" },
+      "company": "VHS Berlin",
+      "period": "06/2025 – present",
+      "duration": { "en": "1 Year", "de": "1 Jahr" },
+      "bullets": {
+        "en": [
+          "French language course, intermediate level (A2 → B1)"
+        ],
+        "de": [
+          "Französischkurs, Mittelstufe (A2 → B1)"
+        ]
+      }
+    },
+    {
       "id": "e1",
       "title": { "en": "Senior Frontend Developer", "de": "Senior Frontend-Entwicklerin" },
       "company": "TechStartup GmbH",
@@ -66,25 +101,6 @@
           "Reduzierte Bundle-Größe um **35 %** durch Code-Splitting und Tree-Shaking",
           "Führte Komponentenbibliothek ein, die von **4 Produktteams** genutzt wird",
           "Verbesserte Lighthouse-Performance-Score von **68** auf **94**"
-        ]
-      }
-    },
-    {
-      "id": "e0",
-      "title": { "en": "Career Break — Further Education", "de": "Karrierepause — Weiterbildung" },
-      "company": "",
-      "period": "06/2025 – present",
-      "duration": { "en": "1 Year", "de": "1 Jahr" },
-      "bullets": {
-        "en": [
-          "Completed **German language course** at Goethe-Institut Berlin (B2 → C1)",
-          "Completed **French language course** at VHS Berlin (A2 → B1)",
-          "Contributed to open-source React projects on GitHub"
-        ],
-        "de": [
-          "Abschluss eines **Deutschkurses** am Goethe-Institut Berlin (B2 → C1)",
-          "Abschluss eines **Französischkurses** an der VHS Berlin (A2 → B1)",
-          "Beiträge zu Open-Source-React-Projekten auf GitHub"
         ]
       }
     },
@@ -121,32 +137,6 @@
         "de": "Berlin, Deutschland · 2015–2019"
       },
       "period": "2015–2019"
-    },
-    {
-      "id": "ed2",
-      "institution": "Goethe-Institut Berlin",
-      "degree": {
-        "en": "German Language Course (B2 → C1)",
-        "de": "Deutschkurs (B2 → C1)"
-      },
-      "location": {
-        "en": "Berlin, Germany · 2025–2026",
-        "de": "Berlin, Deutschland · 2025–2026"
-      },
-      "period": "2025–2026"
-    },
-    {
-      "id": "ed3",
-      "institution": "VHS Berlin",
-      "degree": {
-        "en": "French Language Course (A2 → B1)",
-        "de": "Französischkurs (A2 → B1)"
-      },
-      "location": {
-        "en": "Berlin, Germany · 2025–2026",
-        "de": "Berlin, Deutschland · 2025–2026"
-      },
-      "period": "2025–2026"
     }
   ],
   "coverLetter": {

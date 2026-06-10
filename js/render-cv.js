@@ -116,7 +116,7 @@ var RenderCV = (function () {
       + '<div class="cv-name">' + esc(p.name || '') + '</div>'
       + (contact ? '<div class="cv-contact">' + contact + '</div>' : '')
       + (links ? '<div class="cv-contact">' + links + '</div>' : '')
-      + (p.address ? '<div class="cv-contact">' + esc(p.address) + '</div>' : '')
+      + (p.address ? '<div class="cv-contact">' + esc(typeof p.address === 'object' ? (p.address[lang] || p.address.en || '') : p.address) + '</div>' : '')
       + '<div class="cv-section" style="margin-top:12px"><div class="cv-section-title">' + L.aboutMe + '</div><hr class="cv-divider"/>'
       + '<div style="font-size:9.5pt">' + esc(profile.about ? (profile.about[lang] || '') : '') + '</div></div>'
       + (expHtml ? '<div class="cv-section"><div class="cv-section-title">' + L.experience + '</div><hr class="cv-divider"/>' + expHtml + '</div>' : '')

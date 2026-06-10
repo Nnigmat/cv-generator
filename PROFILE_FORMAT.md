@@ -20,7 +20,7 @@
     "phone": "+49 123 456 789",
     "linkedin": "linkedin.com/in/username",
     "github": "github.com/username",
-    "address": "Город, Страна",
+    "address": { "en": "City, Country", "de": "Stadt, Deutschland" },
     "photo": ""
   },
   "about": {
@@ -63,7 +63,7 @@
 | `phone` | string | Телефон |
 | `linkedin` | string | LinkedIn URL |
 | `github` | string | GitHub URL |
-| `address` | string | Адрес |
+| `address` | `{ en, de }` | Адрес на английском и немецком |
 | `photo` | string | Фото — загружай через UI, поле заполнится автоматически как `data:image/...` |
 
 ---

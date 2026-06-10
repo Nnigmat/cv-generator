@@ -34,7 +34,7 @@ var EditorCV = (function () {
     container.appendChild(sectionLabel('Personal Info'));
     var grid = el('div', { className: 'field-grid-2' });
     var fields = [
-      ['Name', 'name'], ['Phone', 'phone'], ['Email', 'email'], ['Address', 'address'],
+      ['Name', 'name'], ['Phone', 'phone'], ['Email', 'email'],
       ['LinkedIn', 'linkedin'], ['GitHub', 'github']
     ];
     fields.forEach(function (pair) {
@@ -43,6 +43,15 @@ var EditorCV = (function () {
       }));
     });
     container.appendChild(grid);
+
+    container.appendChild(sectionLabel('Address'));
+    var addrGrid = el('div', { className: 'field-grid-2' });
+    var addr = _profile.personal.address;
+    if (typeof addr === 'string') { addr = { en: addr, de: addr }; _profile.personal.address = addr; }
+    if (!addr || typeof addr !== 'object') { addr = { en: '', de: '' }; _profile.personal.address = addr; }
+    addrGrid.appendChild(field('English', addr.en, function (v) { _profile.personal.address.en = v; _onChange(); }));
+    addrGrid.appendChild(field('Deutsch', addr.de, function (v) { _profile.personal.address.de = v; _onChange(); }));
+    container.appendChild(addrGrid);
 
     if (_lang === 'de') {
       container.appendChild(sectionLabel('Persönliche Daten'));
