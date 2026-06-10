@@ -1,6 +1,6 @@
 var RenderCV = (function () {
   var L10N = {
-    en: { aboutMe: 'ABOUT ME', experience: 'CAREER', education: 'EDUCATION' },
+    en: { aboutMe: 'Summary', experience: 'Experience', education: 'Education' },
     de: { aboutMe: 'ÜBER MICH', experience: 'WERDEGANG', education: 'AUSBILDUNG' }
   };
 
@@ -66,6 +66,7 @@ var RenderCV = (function () {
       ? (profile.sidebarSections || []).map(function (s) { return renderSidebarSection(s, lang, true); }).join('')
       : '';
 
+    // DE layout: pipe-separated email | phone, then links
     var contact = [p.email, p.phone].filter(Boolean).map(function (v) {
       if (v === p.phone) return '<a href="tel:' + esc(v.replace(/\s+/g, '')) + '" style="color:inherit;text-decoration:none">' + esc(v) + '</a>';
       return esc(v);
@@ -75,11 +76,43 @@ var RenderCV = (function () {
       return '<a href="' + href + '" style="color:inherit;text-decoration:none">' + esc(v) + '</a>';
     }).join(' | ');
 
+    // EN layout: bullet-separated contact line (email • Telegram • LinkedIn • GitHub)
+    var enContactItems = [];
+    if (p.email) enContactItems.push('<a href="mailto:' + esc(p.email) + '" style="color:inherit;text-decoration:none">' + esc(p.email) + '</a>');
+    if (p.telegram) {
+      var tgHref = /^https?:\/\//i.test(p.telegram) ? p.telegram : 'https://t.me/' + p.telegram.replace(/^@/, '');
+      enContactItems.push('<a href="' + tgHref + '" style="color:inherit;text-decoration:none">Telegram</a>');
+    }
+    if (p.linkedin) {
+      var liHref = /^https?:\/\//i.test(p.linkedin) ? p.linkedin : 'https://' + p.linkedin;
+      enContactItems.push('<a href="' + liHref + '" style="color:inherit;text-decoration:none">LinkedIn</a>');
+    }
+    if (p.github) {
+      var ghHref = /^https?:\/\//i.test(p.github) ? p.github : 'https://' + p.github;
+      enContactItems.push('<a href="' + ghHref + '" style="color:inherit;text-decoration:none">GitHub</a>');
+    }
+    var enContactLine = enContactItems.join(' • ');
+
+    // EN header languages line: "English: Upper Intermediate • Russian: Proficiency"
+    var enLangLine = (p.headerLanguages || []).map(function (l) {
+      return esc(l.name) + ': ' + esc(l.level);
+    }).join(' • ');
+
     var expHtml = (profile.experience || []).map(function (job) {
       var title = job.title ? (job.title[lang] || job.title.en || '') : '';
       var duration = job.duration ? (job.duration[lang] || job.duration.en || '') : '';
+      var companyDesc = job.companyDescription ? (job.companyDescription[lang] || job.companyDescription.en || '') : '';
       var bullets = (job.bullets ? (job.bullets[lang] || job.bullets.en || []) : [])
         .map(function (b) { return '<li>' + bold(b) + '</li>'; }).join('');
+
+      if (lang === 'en') {
+        return '<div style="margin-top:8px;margin-bottom:12px">'
+          + (job.company ? '<div style="font-size:11pt;font-weight:700;margin-bottom:2px">' + esc(job.company) + '</div>' : '')
+          + (companyDesc ? '<div style="font-size:9pt;margin-bottom:4px">' + esc(companyDesc) + '</div>' : '')
+          + '<div class="cv-exp-header"><div><strong>' + esc(title) + '</strong></div>'
+          + '<div class="cv-exp-period">' + esc(job.period || '') + (duration ? '<br>(' + esc(duration) + ')' : '') + '</div></div>'
+          + '<ul class="cv-exp-bullets">' + bullets + '</ul></div>';
+      }
       return '<div style="margin-top:6px;margin-bottom:10px">'
         + '<div class="cv-exp-header"><div><strong>' + esc(title) + '</strong><br>'
         + '<em style="font-size:9pt;color:#555">' + esc(job.company || '') + '</em></div>'
@@ -90,6 +123,17 @@ var RenderCV = (function () {
     var eduHtml = (profile.education || []).map(function (ed) {
       var degree = ed.degree ? (ed.degree[lang] || ed.degree.en || '') : '';
       var location = ed.location ? (ed.location[lang] || ed.location.en || '') : '';
+      var eduBullets = (ed.bullets ? (ed.bullets[lang] || ed.bullets.en || []) : [])
+        .map(function (b) { return '<li>' + bold(b) + '</li>'; }).join('');
+
+      if (lang === 'en') {
+        return '<div style="font-size:9.5pt;margin-top:6px">'
+          + '<div><strong>' + esc(ed.institution || '') + (location ? ', ' + esc(location) : '') + '</strong>'
+          + (ed.period ? ' ' + esc(ed.period) : '') + '</div>'
+          + '<div>' + esc(degree) + '</div>'
+          + (eduBullets ? '<ul class="cv-exp-bullets">' + eduBullets + '</ul>' : '')
+          + '</div>';
+      }
       return '<div style="font-size:9.5pt;margin-top:4px"><strong>' + esc(ed.institution || '') + '</strong><br>'
         + esc(degree) + '<br><em style="color:#555">' + esc(location) + (ed.period ? ' · ' + esc(ed.period) : '') + '</em></div>';
     }).join('');
@@ -110,13 +154,26 @@ var RenderCV = (function () {
     }
 
     var wrapClass = lang === 'en' ? 'cv-wrap cv-wrap--linear' : 'cv-wrap';
+
+    var enHeader = '';
+    if (lang === 'en') {
+      var nameTitle = esc(p.name || '') + (p.title ? ', ' + esc(p.title) : '');
+      var ageLoc = [p.age ? p.age + ' years old' : '', p.address ? 'based in ' + esc(typeof p.address === 'object' ? (p.address.en || '') : p.address) : ''].filter(Boolean).join(' • ');
+      enHeader = '<div class="cv-name">' + nameTitle + '</div>'
+        + (ageLoc ? '<div class="cv-contact">' + ageLoc + '</div>' : '')
+        + (enContactLine ? '<div class="cv-contact">' + enContactLine + '</div>' : '')
+        + (enLangLine ? '<div class="cv-contact">' + enLangLine + '</div>' : '');
+    }
+
     var html = '<div class="' + wrapClass + '">'
       + (lang !== 'en' ? '<div class="cv-sidebar">' + sidebar + '</div>' : '')
       + '<div class="cv-main">'
-      + '<div class="cv-name">' + esc(p.name || '') + '</div>'
-      + (contact ? '<div class="cv-contact">' + contact + '</div>' : '')
-      + (links ? '<div class="cv-contact">' + links + '</div>' : '')
-      + (p.address ? '<div class="cv-contact">' + esc(typeof p.address === 'object' ? (p.address[lang] || p.address.en || '') : p.address) + '</div>' : '')
+      + (lang === 'en' ? enHeader
+        : '<div class="cv-name">' + esc(p.name || '') + '</div>'
+        + (contact ? '<div class="cv-contact">' + contact + '</div>' : '')
+        + (links ? '<div class="cv-contact">' + links + '</div>' : '')
+        + (p.address ? '<div class="cv-contact">' + esc(typeof p.address === 'object' ? (p.address[lang] || p.address.en || '') : p.address) + '</div>' : '')
+      )
       + '<div class="cv-section" style="margin-top:12px"><div class="cv-section-title">' + L.aboutMe + '</div><hr class="cv-divider"/>'
       + '<div style="font-size:9.5pt">' + esc(profile.about ? (profile.about[lang] || '') : '') + '</div></div>'
       + (expHtml ? '<div class="cv-section"><div class="cv-section-title">' + L.experience + '</div><hr class="cv-divider"/>' + expHtml + '</div>' : '')

@@ -9,14 +9,21 @@
   },
   "personal": {
     "name": "Jane Smith",
+    "title": "Senior Frontend Developer",
+    "age": 29,
     "email": "jane.smith@example.com",
     "phone": "+49 123 456 7890",
+    "telegram": "janesmith",
     "linkedin": "linkedin.com/in/jane-smith",
     "github": "github.com/janesmith",
     "address": {
-      "en": "Hooverweg 5, 30519 Hannover, Germany",
+      "en": "Hannover, Germany",
       "de": "Hooverweg 5, 30519 Hannover, Deutschland"
     },
+    "headerLanguages": [
+      { "name": "English", "level": "Native" },
+      { "name": "German", "level": "C1" }
+    ],
     "photo": ""
   },
   "about": {
@@ -87,6 +94,7 @@
       "id": "e1",
       "title": { "en": "Senior Frontend Developer", "de": "Senior Frontend-Entwicklerin" },
       "company": "TechStartup GmbH",
+      "companyDescription": { "en": "TechStartup GmbH builds B2B SaaS tools for enterprise workflow automation (50–200 employees).", "de": "" },
       "period": "03/2022 – 05/2025",
       "duration": { "en": "3.2 Years", "de": "3,2 Jahre" },
       "bullets": {
@@ -133,10 +141,17 @@
         "de": "Bachelor of Science in Informatik"
       },
       "location": {
-        "en": "Berlin, Germany · 2015–2019",
-        "de": "Berlin, Deutschland · 2015–2019"
+        "en": "Berlin, Germany",
+        "de": "Berlin, Deutschland"
       },
-      "period": "2015–2019"
+      "period": "2015–2019",
+      "bullets": {
+        "en": [
+          "**Project-focused** curriculum with international faculty",
+          "Relevant courses: Software Architecture & Design (SOLID, OOP, Design Patterns), Data Structures & Algorithms, Distributed Systems, Databases"
+        ],
+        "de": []
+      }
     }
   ],
   "coverLetter": {

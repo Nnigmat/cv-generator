@@ -59,11 +59,15 @@
 | Поле | Тип | Описание |
 |------|-----|----------|
 | `name` | string | Полное имя |
+| `title` | string | Профессиональный заголовок (EN header: "Name, Title") |
+| `age` | number | Возраст (EN header: "27 years old") |
 | `email` | string | Email |
 | `phone` | string | Телефон |
+| `telegram` | string | Telegram handle или URL (EN header: показывается как "Telegram") |
 | `linkedin` | string | LinkedIn URL |
 | `github` | string | GitHub URL |
 | `address` | `{ en, de }` | Адрес на английском и немецком |
+| `headerLanguages` | `[{ name, level }]` | Языки в шапке EN CV: `[{ "name": "English", "level": "Upper Intermediate" }]` |
 | `photo` | string | Фото — загружай через UI, поле заполнится автоматически как `data:image/...` |
 
 ---
@@ -134,6 +138,10 @@
     "id": "e1",
     "title":    { "en": "Senior Frontend Developer", "de": "Senior Frontend-Entwickler" },
     "company":  "Company Name",
+    "companyDescription": {
+      "en": "Short description of the company shown below the company name (EN layout only).",
+      "de": ""
+    },
     "period":   "01/2022 – present",
     "duration": { "en": "3 Years", "de": "3 Jahre" },
     "bullets": {
@@ -169,7 +177,11 @@
       "en": "Berlin, Germany",
       "de": "Berlin, Deutschland"
     },
-    "period": "2015–2019"
+    "period": "2015–2019",
+    "bullets": {
+      "en": ["Optional bullet points about curriculum, courses, achievements"],
+      "de": []
+    }
   }
 ]
 ```
