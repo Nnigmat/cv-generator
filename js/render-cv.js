@@ -8,8 +8,10 @@ var RenderCV = (function () {
     return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
-  function bold(text) {
-    return esc(text).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  function md(text) {
+    return esc(text)
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*([^*]+)\*/g, '<em>$1</em>');
   }
 
   function renderSidebarSection(sec, lang, inline) {
@@ -22,11 +24,11 @@ var RenderCV = (function () {
     } else if (sec.type === 'list') {
       body = '<ul class="cv-sidebar-list">' + (sec.items || []).map(function (item) {
         var text = typeof item === 'object' ? (item[lang] || item.en || '') : item;
-        return '<li>' + esc(text) + '</li>';
+        return '<li>' + md(text) + '</li>';
       }).join('') + '</ul>';
     } else if (sec.type === 'text') {
       var content = sec.content ? (sec.content[lang] || sec.content.en || '') : '';
-      body = '<div class="cv-sidebar-text">' + esc(content) + '</div>';
+      body = '<div class="cv-sidebar-text">' + md(content) + '</div>';
     }
     if (inline) {
       return '<div class="cv-section"><div class="cv-section-title">' + title + '</div><hr class="cv-divider"/>' + body + '</div>';
@@ -108,12 +110,12 @@ var RenderCV = (function () {
       var duration = job.duration ? (job.duration[lang] || job.duration.en || '') : '';
       var companyDesc = job.companyDescription ? (job.companyDescription[lang] || job.companyDescription.en || '') : '';
       var bullets = (job.bullets ? (job.bullets[lang] || job.bullets.en || []) : [])
-        .map(function (b) { return '<li>' + bold(b) + '</li>'; }).join('');
+        .map(function (b) { return '<li>' + md(b) + '</li>'; }).join('');
 
       if (lang === 'en') {
         return '<div style="margin-top:8px;margin-bottom:12px">'
           + (job.company ? '<div style="font-size:11pt;font-weight:700;margin-bottom:2px">' + esc(job.company) + '</div>' : '')
-          + (companyDesc ? '<div style="font-size:9pt;margin-bottom:4px">' + esc(companyDesc) + '</div>' : '')
+          + (companyDesc ? '<div style="font-size:9pt;margin-bottom:4px">' + md(companyDesc) + '</div>' : '')
           + '<div class="cv-exp-header"><div><strong>' + esc(title) + '</strong></div>'
           + '<div class="cv-exp-period">' + esc(job.period || '') + (duration ? '<br>(' + esc(duration) + ')' : '') + '</div></div>'
           + '<ul class="cv-exp-bullets">' + bullets + '</ul></div>';
@@ -129,18 +131,18 @@ var RenderCV = (function () {
       var degree = ed.degree ? (ed.degree[lang] || ed.degree.en || '') : '';
       var location = ed.location ? (ed.location[lang] || ed.location.en || '') : '';
       var eduBullets = (ed.bullets ? (ed.bullets[lang] || ed.bullets.en || []) : [])
-        .map(function (b) { return '<li>' + bold(b) + '</li>'; }).join('');
+        .map(function (b) { return '<li>' + md(b) + '</li>'; }).join('');
 
       if (lang === 'en') {
         return '<div style="font-size:9.5pt;margin-top:6px">'
           + '<div><strong>' + esc(ed.institution || '') + (location ? ', ' + esc(location) : '') + '</strong>'
           + (ed.period ? ' ' + esc(ed.period) : '') + '</div>'
-          + '<div>' + esc(degree) + '</div>'
+          + '<div>' + md(degree) + '</div>'
           + (eduBullets ? '<ul class="cv-exp-bullets">' + eduBullets + '</ul>' : '')
           + '</div>';
       }
       return '<div style="font-size:9.5pt;margin-top:4px"><strong>' + esc(ed.institution || '') + '</strong><br>'
-        + esc(degree) + '<br><em style="color:#555">' + esc(location) + (ed.period ? ' · ' + esc(ed.period) : '') + '</em></div>';
+        + md(degree) + '<br><em style="color:#555">' + esc(location) + (ed.period ? ' · ' + esc(ed.period) : '') + '</em></div>';
     }).join('');
 
     var signatureHtml = '';
@@ -180,7 +182,7 @@ var RenderCV = (function () {
         + (p.address ? '<div class="cv-contact">' + esc(typeof p.address === 'object' ? (p.address[lang] || p.address.en || '') : p.address) + '</div>' : '')
       )
       + '<div class="cv-section" style="margin-top:12px"><div class="cv-section-title">' + L.aboutMe + '</div><hr class="cv-divider"/>'
-      + '<div style="font-size:9.5pt">' + esc(profile.about ? (profile.about[lang] || '') : '') + '</div></div>'
+      + '<div style="font-size:9.5pt">' + md(profile.about ? (profile.about[lang] || '') : '') + '</div></div>'
       + (expHtml ? '<div class="cv-section"><div class="cv-section-title">' + L.experience + '</div><hr class="cv-divider"/>' + expHtml + '</div>' : '')
       + (eduHtml ? '<div class="cv-section"><div class="cv-section-title">' + L.education + '</div><hr class="cv-divider"/>' + eduHtml + '</div>' : '')
       + inlineSections

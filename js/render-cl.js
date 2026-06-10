@@ -3,6 +3,12 @@ var RenderCL = (function () {
     return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
+  function md(text) {
+    return esc(text)
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  }
+
   function render(profile, lang) {
     var p = profile.personal || {};
     var meta = profile.meta || {};
@@ -19,7 +25,7 @@ var RenderCL = (function () {
 
     var body = (cl.body ? (cl.body[lang] || '') : '').split('\n\n')
       .filter(function (t) { return t.trim(); })
-      .map(function (para) { return '<p class="cl-para">' + esc(para) + '</p>'; }).join('');
+      .map(function (para) { return '<p class="cl-para">' + md(para) + '</p>'; }).join('');
 
     var date = cl.date ? (cl.date[lang] || '') : '';
 
