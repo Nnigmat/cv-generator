@@ -294,6 +294,46 @@ var EditorCV = (function () {
     container.appendChild(imgWrap);
   }
 
+  function buildHeaderLanguages(container) {
+    container.appendChild(sectionLabel('Languages — ' + _lang.toUpperCase()));
+
+    // Migrate legacy flat array to per-lang object
+    var hl = _profile.personal.headerLanguages;
+    if (!hl || typeof hl !== 'object' || Array.isArray(hl)) {
+      _profile.personal.headerLanguages = { en: Array.isArray(hl) ? hl : [], de: [] };
+      _onChange();
+    }
+    var langArr = _profile.personal.headerLanguages[_lang] || [];
+    _profile.personal.headerLanguages[_lang] = langArr;
+
+    var list = el('div');
+
+    langArr.forEach(function (entry, idx) {
+      var item = el('div', { className: 'dynamic-item' });
+      var actions = el('div', { className: 'dynamic-item-actions' });
+      var delBtn = el('button', { className: 'btn-icon', title: 'Delete' }, '🗑');
+      delBtn.addEventListener('click', function () {
+        langArr.splice(idx, 1); _onChange();
+        build(document.getElementById('editor-panel'), _profile, _lang, _onChange);
+      });
+      actions.appendChild(delBtn);
+      item.appendChild(actions);
+      var grid = el('div', { className: 'field-grid-2' });
+      grid.appendChild(field('Language', entry.name, function (v) { entry.name = v; _onChange(); }));
+      grid.appendChild(field('Level', entry.level, function (v) { entry.level = v; _onChange(); }));
+      item.appendChild(grid);
+      list.appendChild(item);
+    });
+
+    var addBtn = el('button', { className: 'btn-add' }, '+ Add Language');
+    addBtn.addEventListener('click', function () {
+      langArr.push({ name: '', level: '' }); _onChange();
+      build(document.getElementById('editor-panel'), _profile, _lang, _onChange);
+    });
+    list.appendChild(addBtn);
+    container.appendChild(list);
+  }
+
   function build(container, profile, lang, onChange) {
     _profile = profile; _lang = lang; _onChange = onChange;
     container.innerHTML = '';
@@ -301,6 +341,7 @@ var EditorCV = (function () {
     buildPersonal(wrap);
     buildPhoto(wrap);
     buildAbout(wrap);
+    buildHeaderLanguages(wrap);
     buildSidebar(wrap);
     buildExperience(wrap);
     buildEducation(wrap);

@@ -94,8 +94,12 @@ var RenderCV = (function () {
     }
     var enContactLine = enContactItems.join(' • ');
 
-    // EN header languages line: "English: Upper Intermediate • Russian: Proficiency"
-    var enLangLine = (p.headerLanguages || []).map(function (l) {
+    // Header languages line — per-lang array or legacy flat array
+    var _hlRaw = p.headerLanguages || [];
+    var _hlArr = Array.isArray(_hlRaw)
+      ? _hlRaw
+      : (_hlRaw[lang] || _hlRaw.en || []);
+    var enLangLine = _hlArr.map(function (l) {
       return esc(l.name) + ': ' + esc(l.level);
     }).join(' • ');
 
