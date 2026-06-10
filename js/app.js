@@ -107,6 +107,44 @@
     e.target.value = '';
   });
 
+  // JSON editor modal
+  var jsonModal = document.getElementById('json-modal');
+  var jsonTextarea = document.getElementById('json-textarea');
+  var jsonError = document.getElementById('json-error');
+
+  function openJsonModal() {
+    jsonTextarea.value = JSON.stringify(profile, null, 2);
+    jsonError.style.display = 'none';
+    jsonModal.style.display = 'flex';
+    jsonTextarea.focus();
+  }
+
+  function closeJsonModal() { jsonModal.style.display = 'none'; }
+
+  function applyJson() {
+    try {
+      var data = JSON.parse(jsonTextarea.value);
+      data.id = profile.id;
+      Object.assign(profile, data);
+      Store.save(profile);
+      if (mode === 'edit') rebuildEditor();
+      rerender();
+      closeJsonModal();
+    } catch (err) {
+      jsonError.textContent = 'Invalid JSON: ' + err.message;
+      jsonError.style.display = '';
+    }
+  }
+
+  document.getElementById('btn-edit-json').addEventListener('click', openJsonModal);
+  document.getElementById('json-modal-close').addEventListener('click', closeJsonModal);
+  document.getElementById('json-modal-cancel').addEventListener('click', closeJsonModal);
+  document.getElementById('json-modal-apply').addEventListener('click', applyJson);
+  jsonModal.addEventListener('click', function (e) { if (e.target === jsonModal) closeJsonModal(); });
+  jsonTextarea.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); applyJson(); }
+  });
+
   // Initial render — pre-render both so PDF export works without switching tabs
   RenderCV.render(profile, lang);
   RenderCL.render(profile, lang);
