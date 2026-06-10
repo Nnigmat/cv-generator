@@ -244,6 +244,10 @@ var EditorCV = (function () {
       item.appendChild(field('Location', ed.location ? (ed.location[_lang] || '') : '', function (v) {
         if (!ed.location) ed.location = {}; ed.location[_lang] = v; _onChange();
       }));
+      item.appendChild(field('Bullets', (ed.bullets ? (ed.bullets[_lang] || []) : []).join('\n'), function (v) {
+        if (!ed.bullets) ed.bullets = {};
+        ed.bullets[_lang] = v.split('\n'); _onChange();
+      }, { rows: 3 }));
       list.appendChild(item);
     });
     var addBtn = el('button', { className: 'btn-add' }, '+ Add Education');
