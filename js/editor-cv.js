@@ -35,7 +35,7 @@ var EditorCV = (function () {
     var grid = el('div', { className: 'field-grid-2' });
     var fields = [
       ['Name', 'name'], ['Phone', 'phone'], ['Email', 'email'],
-      ['LinkedIn', 'linkedin'], ['GitHub', 'github']
+      ['Telegram', 'telegram'], ['LinkedIn', 'linkedin'], ['GitHub', 'github']
     ];
     fields.forEach(function (pair) {
       grid.appendChild(field(pair[0], _profile.personal[pair[1]], function (v) {

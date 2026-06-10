@@ -76,20 +76,21 @@ var RenderCV = (function () {
       return '<a href="' + href + '" style="color:inherit;text-decoration:none">' + esc(v) + '</a>';
     }).join(' | ');
 
-    // EN layout: bullet-separated contact line (email • Telegram • LinkedIn • GitHub)
+    // EN layout: bullet-separated contact line (phone • email • Telegram • LinkedIn • GitHub)
     var enContactItems = [];
-    if (p.email) enContactItems.push('<a href="mailto:' + esc(p.email) + '" style="color:inherit;text-decoration:none">' + esc(p.email) + '</a>');
+    if (p.phone) enContactItems.push('<a href="tel:' + esc(p.phone.replace(/\s+/g, '')) + '" style="color:#1a56db;text-decoration:none">' + esc(p.phone) + '</a>');
+    if (p.email) enContactItems.push('<a href="mailto:' + esc(p.email) + '" style="color:#1a56db;text-decoration:none">' + esc(p.email) + '</a>');
     if (p.telegram) {
       var tgHref = /^https?:\/\//i.test(p.telegram) ? p.telegram : 'https://t.me/' + p.telegram.replace(/^@/, '');
-      enContactItems.push('<a href="' + tgHref + '" style="color:inherit;text-decoration:none">Telegram</a>');
+      enContactItems.push('<a href="' + tgHref + '" style="color:#1a56db;text-decoration:none">Telegram</a>');
     }
     if (p.linkedin) {
       var liHref = /^https?:\/\//i.test(p.linkedin) ? p.linkedin : 'https://' + p.linkedin;
-      enContactItems.push('<a href="' + liHref + '" style="color:inherit;text-decoration:none">LinkedIn</a>');
+      enContactItems.push('<a href="' + liHref + '" style="color:#1a56db;text-decoration:none">LinkedIn</a>');
     }
     if (p.github) {
       var ghHref = /^https?:\/\//i.test(p.github) ? p.github : 'https://' + p.github;
-      enContactItems.push('<a href="' + ghHref + '" style="color:inherit;text-decoration:none">GitHub</a>');
+      enContactItems.push('<a href="' + ghHref + '" style="color:#1a56db;text-decoration:none">GitHub</a>');
     }
     var enContactLine = enContactItems.join(' • ');
 
@@ -158,7 +159,7 @@ var RenderCV = (function () {
     var enHeader = '';
     if (lang === 'en') {
       var nameTitle = esc(p.name || '') + (p.title ? ', ' + esc(p.title) : '');
-      var ageLoc = [p.age ? p.age + ' years old' : '', p.address ? 'based in ' + esc(typeof p.address === 'object' ? (p.address.en || '') : p.address) : ''].filter(Boolean).join(' • ');
+      var ageLoc = [p.age ? p.age + ' years old' : '', p.address ? esc(typeof p.address === 'object' ? (p.address.en || '') : p.address) : ''].filter(Boolean).join(' • ');
       enHeader = '<div class="cv-name">' + nameTitle + '</div>'
         + (ageLoc ? '<div class="cv-contact">' + ageLoc + '</div>' : '')
         + (enContactLine ? '<div class="cv-contact">' + enContactLine + '</div>' : '')
