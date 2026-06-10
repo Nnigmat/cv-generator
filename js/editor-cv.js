@@ -200,6 +200,9 @@ var EditorCV = (function () {
         if (!job.duration) job.duration = {}; job.duration[_lang] = v; _onChange();
       }));
       item.appendChild(grid3);
+      item.appendChild(field('Company Description', job.companyDescription ? (job.companyDescription[_lang] || '') : '', function (v) {
+        if (!job.companyDescription) job.companyDescription = {}; job.companyDescription[_lang] = v; _onChange();
+      }, { multi: true, rows: 2, hint: 'Short company context · **text** for bold' }));
       item.appendChild(field('Bullets', (job.bullets ? (job.bullets[_lang] || []) : []).join('\n'), function (v) {
         if (!job.bullets) job.bullets = {};
         job.bullets[_lang] = v.split('\n'); _onChange();
