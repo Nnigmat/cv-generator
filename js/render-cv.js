@@ -113,15 +113,15 @@ var RenderCV = (function () {
       var companyTitle = (job.company ? esc(job.company) : '') + (job.company && title ? ' — ' + esc(title) : esc(title));
       if (lang === 'en') {
         return '<div style="margin-top:8px;margin-bottom:12px">'
-          + '<div class="cv-exp-header"><div style="font-size:11pt;font-weight:700">' + companyTitle + '</div>'
+          + '<div class="cv-exp-header"><div><div style="font-size:11pt;font-weight:700">' + companyTitle + '</div>'
+          + (companyDesc ? '<div style="font-size:9pt;margin-top:2px">' + md(companyDesc) + '</div>' : '') + '</div>'
           + '<div class="cv-exp-period">' + esc(job.period || '') + (duration ? '<br>(' + esc(duration) + ')' : '') + '</div></div>'
-          + (companyDesc ? '<div style="font-size:9pt;margin-bottom:4px">' + md(companyDesc) + '</div>' : '')
           + '<ul class="cv-exp-bullets">' + bullets + '</ul></div>';
       }
       return '<div style="margin-top:6px;margin-bottom:10px">'
-        + '<div class="cv-exp-header"><div style="font-weight:700">' + companyTitle + '</div>'
+        + '<div class="cv-exp-header"><div><div style="font-weight:700">' + companyTitle + '</div>'
+        + (companyDesc ? '<div style="font-size:9pt;margin-top:2px">' + md(companyDesc) + '</div>' : '') + '</div>'
         + '<div class="cv-exp-period">' + esc(job.period || '') + (duration ? '<br>(' + esc(duration) + ')' : '') + '</div></div>'
-        + (companyDesc ? '<div style="font-size:9pt;margin-bottom:4px">' + md(companyDesc) + '</div>' : '')
         + '<ul class="cv-exp-bullets">' + bullets + '</ul></div>';
     }).join('');
 
