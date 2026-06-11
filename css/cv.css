@@ -54,5 +54,6 @@
   .toolbar, .editor-panel, .preview-hint { display: none !important; }
   .builder-wrap { padding: 0; }
   .preview-card { box-shadow: none; border-radius: 0; padding: 0; }
+  .cv-main { padding: 20px; }
   @page { size: A4; margin: 14mm; }
 }
