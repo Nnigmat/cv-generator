@@ -26,7 +26,7 @@ var Store = (function () {
     return {
       id: Math.random().toString(36).slice(2) + Date.now().toString(36),
       createdAt: new Date().toISOString(),
-      meta: { company: '', position: '', status: 'draft', lang: 'en' },
+      meta: { company: '', position: '', status: 'draft', statusHistory: [{ status: 'draft', date: new Date().toISOString() }], lang: 'en' },
       personal: { name: '', title: '', age: '', email: '', phone: '', telegram: '', linkedin: '', github: '', address: '', headerLanguages: [], photo: '', dateOfBirth: '', nationality: '', maritalStatus: '', signatureCity: '', signatureImage: '' },
       about: { en: '', de: '' },
       sidebarSections: [

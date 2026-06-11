@@ -9,6 +9,18 @@
     return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
   }
 
+  function renderHistory(history) {
+    if (!history || history.length === 0) return '';
+    return '<div class="status-history">'
+      + history.map(function (h) {
+        return '<div class="status-history-item">'
+          + '<span class="status-history-label">' + esc(STATUS_LABELS[h.status] || h.status) + '</span>'
+          + '<span class="status-history-date">' + formatDate(h.date) + '</span>'
+          + '</div>';
+      }).join('')
+      + '</div>';
+  }
+
   function renderCards() {
     var grid = document.getElementById('cards-grid');
     var profiles = Store.getAll();
@@ -23,9 +35,12 @@
       return '<div class="profile-card" data-id="' + p.id + '">'
         + '<div class="profile-card-title">' + esc(p.meta.company || 'Unnamed company') + '</div>'
         + '<div class="profile-card-position">' + esc(p.meta.position || 'No position') + '</div>'
+        + '<div class="status-row">'
         + '<select class="status-select" data-id="' + p.id + '">' + statusOpts + '</select>'
+        + '</div>'
+        + renderHistory(p.meta.statusHistory)
         + '<div class="profile-card-footer">'
-        + '<span class="profile-card-date">' + formatDate(p.createdAt) + '</span>'
+        + '<span class="profile-card-date">Created: ' + formatDate(p.createdAt) + '</span>'
         + '<div class="card-actions">'
         + '<button class="btn btn-open" data-id="' + p.id + '">Open</button>'
         + '<button class="btn btn-delete" data-id="' + p.id + '" style="color:#c00;border-color:#f8d0d0">Delete</button>'
@@ -54,7 +69,13 @@
     if (e.target.classList.contains('status-select')) {
       var id = e.target.dataset.id;
       var p = Store.get(id);
-      if (p) { p.meta.status = e.target.value; Store.save(p); }
+      if (p) {
+        p.meta.status = e.target.value;
+        if (!p.meta.statusHistory) p.meta.statusHistory = [];
+        p.meta.statusHistory.push({ status: e.target.value, date: new Date().toISOString() });
+        Store.save(p);
+        renderCards();
+      }
     }
   });
 

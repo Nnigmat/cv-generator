@@ -40,11 +40,20 @@
 .profile-card-date { font-size: 11px; color: #aaa; }
 .card-actions { display: flex; gap: 6px; }
 
-/* Status select */
+/* Status row */
+.status-row { display: flex; align-items: center; gap: 8px; }
 .status-select {
   font-size: 11.5px; padding: 3px 8px; border-radius: 5px; border: 1.5px solid var(--border);
   cursor: pointer; background: white;
 }
+.status-date { font-size: 11px; color: #aaa; }
+
+/* Status history */
+.status-history { display: flex; flex-direction: column; gap: 3px; margin-top: -2px; }
+.status-history-item { display: flex; align-items: center; gap: 6px; font-size: 11px; }
+.status-history-item::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #ccc; flex-shrink: 0; }
+.status-history-label { color: #555; font-weight: 500; }
+.status-history-date { color: #aaa; }
 
 /* Empty state */
 .empty-state { text-align: center; padding: 60px 20px; color: #aaa; font-size: 15px; }
