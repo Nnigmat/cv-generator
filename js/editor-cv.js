@@ -341,6 +341,17 @@ var EditorCV = (function () {
     container.appendChild(list);
   }
 
+  function buildVacancy(container) {
+    container.appendChild(sectionLabel('Vacancy'));
+    if (!_profile.vacancy) { _profile.vacancy = { url: '', text: '' }; }
+    container.appendChild(field('Job URL', _profile.vacancy.url, function (v) {
+      _profile.vacancy.url = v; _onChange();
+    }));
+    container.appendChild(field('Job Description', _profile.vacancy.text, function (v) {
+      _profile.vacancy.text = v; _onChange();
+    }, { multi: true, rows: 8 }));
+  }
+
   function build(container, profile, lang, onChange) {
     _profile = profile; _lang = lang; _onChange = onChange;
     container.innerHTML = '';
@@ -353,6 +364,7 @@ var EditorCV = (function () {
     buildExperience(wrap);
     buildEducation(wrap);
     if (_lang === 'de') { buildSignature(wrap); }
+    buildVacancy(wrap);
     container.appendChild(wrap);
   }
 

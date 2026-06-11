@@ -36,7 +36,8 @@ var Store = (function () {
       ],
       experience: [],
       education: [],
-      coverLetter: { date: { en: '', de: '' }, body: { en: '', de: '' } }
+      coverLetter: { date: { en: '', de: '' }, body: { en: '', de: '' } },
+      vacancy: { url: '', text: '' }
     };
   }
 
