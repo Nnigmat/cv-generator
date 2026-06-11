@@ -21,9 +21,30 @@
       + '</div>';
   }
 
+  function getSortedProfiles() {
+    var profiles = Store.getAll();
+    var sort = document.getElementById('sort-select').value;
+    profiles = profiles.slice();
+    if (sort === 'created-desc') {
+      profiles.sort(function (a, b) { return (b.createdAt || '').localeCompare(a.createdAt || ''); });
+    } else if (sort === 'created-asc') {
+      profiles.sort(function (a, b) { return (a.createdAt || '').localeCompare(b.createdAt || ''); });
+    } else if (sort === 'company-asc') {
+      profiles.sort(function (a, b) { return (a.meta.company || '').localeCompare(b.meta.company || ''); });
+    } else if (sort === 'company-desc') {
+      profiles.sort(function (a, b) { return (b.meta.company || '').localeCompare(a.meta.company || ''); });
+    } else if (sort === 'status') {
+      var order = { offer: 0, interview: 1, sent: 2, draft: 3, rejected: 4 };
+      profiles.sort(function (a, b) {
+        return (order[a.meta.status] ?? 99) - (order[b.meta.status] ?? 99);
+      });
+    }
+    return profiles;
+  }
+
   function renderCards() {
     var grid = document.getElementById('cards-grid');
-    var profiles = Store.getAll();
+    var profiles = getSortedProfiles();
     if (profiles.length === 0) {
       grid.innerHTML = '<div class="empty-state">No profiles yet. Click "+ New Profile" to start.</div>';
       return;
@@ -95,6 +116,8 @@
     reader.readAsText(file);
     e.target.value = '';
   });
+
+  document.getElementById('sort-select').addEventListener('change', renderCards);
 
   renderCards();
 })();
