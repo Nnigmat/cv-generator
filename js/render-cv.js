@@ -1,7 +1,7 @@
 var RenderCV = (function () {
   var L10N = {
-    en: { aboutMe: 'Summary', experience: 'Experience', education: 'Education' },
-    de: { aboutMe: 'ÜBER MICH', experience: 'WERDEGANG', education: 'AUSBILDUNG' }
+    en: { aboutMe: 'Summary', skills: 'Skills', experience: 'Experience', education: 'Education' },
+    de: { aboutMe: 'ÜBER MICH', skills: 'Skills', experience: 'WERDEGANG', education: 'AUSBILDUNG' }
   };
 
   function esc(str) {
@@ -49,6 +49,38 @@ var RenderCV = (function () {
     return '<div class="cv-sidebar-section"><div class="cv-sidebar-section-title">Persönliche Daten</div>' + rows + '</div>';
   }
 
+  function resolveSkillsSection(profile) {
+    // canonical field → legacy enSkillsSection → legacy sidebarSection with id 'skills'
+    if (profile.skillsSection) return profile.skillsSection;
+    if (profile.enSkillsSection) return profile.enSkillsSection;
+    return null;
+  }
+
+  function renderSkillsInline(sec, L) {
+    if (!sec || sec.hide) return '';
+    var groups = (sec.groups || []).filter(function (g) { return g.items && g.items.length; });
+    if (!groups.length) return '';
+    var body = groups.map(function (g) {
+      var tags = g.items.map(function (t) { return '<span class="cv-sidebar-tag">' + esc(t) + '</span>'; }).join('');
+      return '<div style="margin-top:4px">'
+        + (g.title ? '<span style="font-size:8.5pt;font-weight:600;margin-right:6px">' + esc(g.title) + ':</span>' : '')
+        + tags + '</div>';
+    }).join('');
+    return '<div class="cv-section"><div class="cv-section-title">' + L.skills + '</div><hr class="cv-divider"/>'
+      + body + '</div>';
+  }
+
+  function renderSkillsSidebar(sec, L) {
+    if (!sec || sec.hide) return '';
+    var groups = (sec.groups || []).filter(function (g) { return g.items && g.items.length; });
+    if (!groups.length) return '';
+    var body = groups.map(function (g) {
+      var tags = g.items.map(function (t) { return '<span class="cv-sidebar-tag">' + esc(t) + '</span>'; }).join('');
+      return (g.title ? '<div style="font-size:8pt;font-weight:600;margin:5px 0 2px">' + esc(g.title) + '</div>' : '') + tags;
+    }).join('');
+    return '<div class="cv-sidebar-section"><div class="cv-sidebar-section-title">' + L.skills + '</div>' + body + '</div>';
+  }
+
   function render(profile, lang) {
     var L = L10N[lang] || L10N.en;
     var p = profile.personal || {};
@@ -60,9 +92,13 @@ var RenderCV = (function () {
           : '<div class="cv-sidebar-photo-placeholder">No photo</div>');
 
     var personalData = lang === 'de' ? renderPersonalData(p) : '';
-    var sidebar = photo
-      + personalData
-      + (profile.sidebarSections || []).map(function (s) { return renderSidebarSection(s, lang, false); }).join('');
+    var skillsSec = resolveSkillsSection(profile);
+    // For DE sidebar: render skillsSection first, then sidebarSections (skip legacy skills entry if skillsSection present)
+    var sidebarSkillsHtml = lang === 'de' ? renderSkillsSidebar(skillsSec, L) : '';
+    var sidebarSectionsHtml = (profile.sidebarSections || [])
+      .filter(function (s) { return !(skillsSec && s.id === 'skills'); })
+      .map(function (s) { return renderSidebarSection(s, lang, false); }).join('');
+    var sidebar = photo + personalData + sidebarSkillsHtml + sidebarSectionsHtml;
 
     var inlineSections = '';
 
@@ -181,6 +217,7 @@ var RenderCV = (function () {
       )
       + '<div class="cv-section" style="margin-top:12px"><div class="cv-section-title">' + L.aboutMe + '</div><hr class="cv-divider"/>'
       + '<div style="font-size:9.5pt">' + md(profile.about ? (profile.about[lang] || '') : '') + '</div></div>'
+      + (lang === 'en' ? renderSkillsInline(skillsSec, L) : '')
       + (expHtml ? '<div class="cv-section"><div class="cv-section-title">' + L.experience + '</div><hr class="cv-divider"/>' + expHtml + '</div>' : '')
       + (eduHtml ? '<div class="cv-section"><div class="cv-section-title">' + L.education + '</div><hr class="cv-divider"/>' + eduHtml + '</div>' : '')
       + inlineSections

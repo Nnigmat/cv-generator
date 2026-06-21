@@ -164,6 +164,55 @@ var EditorCV = (function () {
     container.appendChild(list);
   }
 
+  function buildSkills(container) {
+    container.appendChild(sectionLabel('Skills'));
+    // migrate legacy enSkillsSection → skillsSection
+    if (!_profile.skillsSection && _profile.enSkillsSection) {
+      _profile.skillsSection = _profile.enSkillsSection;
+      delete _profile.enSkillsSection;
+      _onChange();
+    }
+    if (!_profile.skillsSection) {
+      _profile.skillsSection = { hide: false, groups: [] };
+    }
+    var sec = _profile.skillsSection;
+
+    var hideWrap = el('div', { className: 'field-wrap', style: 'display:flex;align-items:center;gap:8px' });
+    var hideChk = el('input', { type: 'checkbox', id: 'en-skills-hide' });
+    hideChk.checked = !!sec.hide;
+    hideChk.addEventListener('change', function () { sec.hide = hideChk.checked; _onChange(); });
+    var hideLbl = el('label', { 'for': 'en-skills-hide', className: 'field-label', style: 'margin:0;cursor:pointer' }, 'Hide this section');
+    hideWrap.appendChild(hideChk);
+    hideWrap.appendChild(hideLbl);
+    container.appendChild(hideWrap);
+
+    var list = el('div');
+    (sec.groups || []).forEach(function (grp, idx) {
+      var item = el('div', { className: 'dynamic-item' });
+      var actions = el('div', { className: 'dynamic-item-actions' });
+      var delBtn = el('button', { className: 'btn-icon', title: 'Delete' }, '🗑');
+      delBtn.addEventListener('click', function () {
+        sec.groups.splice(idx, 1); _onChange();
+        build(document.getElementById('editor-panel'), _profile, _lang, _onChange);
+      });
+      actions.appendChild(delBtn);
+      item.appendChild(actions);
+      item.appendChild(field('Group Title (optional)', grp.title || '', function (v) { grp.title = v; _onChange(); }));
+      item.appendChild(field('Items', (grp.items || []).join('\n'), function (v) {
+        grp.items = v.split('\n').map(function (s) { return s.trim(); }).filter(Boolean); _onChange();
+      }, { multi: true, rows: 3, hint: 'One skill per line' }));
+      list.appendChild(item);
+    });
+
+    var addBtn = el('button', { className: 'btn-add' }, '+ Add Group');
+    addBtn.addEventListener('click', function () {
+      sec.groups.push({ title: '', items: [] }); _onChange();
+      build(document.getElementById('editor-panel'), _profile, _lang, _onChange);
+    });
+    list.appendChild(addBtn);
+    container.appendChild(list);
+  }
+
   function buildExperience(container) {
     container.appendChild(sectionLabel('Experience — ' + _lang.toUpperCase()));
     var list = el('div');
@@ -361,6 +410,7 @@ var EditorCV = (function () {
     buildAbout(wrap);
     buildHeaderLanguages(wrap);
     buildSidebar(wrap);
+    buildSkills(wrap);
     buildExperience(wrap);
     buildEducation(wrap);
     if (_lang === 'de') { buildSignature(wrap); }
