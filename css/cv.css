@@ -57,4 +57,5 @@
   .cv-main { padding: 20px; }
   .cl-wrap { padding: 8mm 12mm; }
   @page { size: A4; margin: 14mm; }
+  .cv-sidebar-tag { display: inline-block; background: #e7eef8; color: #000000; border-radius: 4px; padding: 2px 7px; margin: 2px 2px 2px 0; font-size: 8.5pt; }
 }
